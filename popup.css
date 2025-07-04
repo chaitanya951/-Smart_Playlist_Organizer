@@ -1,15 +1,24 @@
+/* =========================
+   RESET & BASE STYLES
+   ========================= */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Page background and base font */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #333;
     min-height: 100vh;
 }
+
+/* =========================
+   Main Container
+   ========================= */
 
 .container {
     width: 380px;
@@ -20,7 +29,10 @@ body {
     overflow: hidden;
 }
 
-/* Header */
+/* =========================
+   Header Section
+   ========================= */
+
 .header {
     background: linear-gradient(135deg, #ff6b6b, #ee5a24);
     color: white;
@@ -34,7 +46,10 @@ body {
     margin: 0;
 }
 
-/* Sections */
+/* =========================
+   Sections
+   ========================= */
+
 .section {
     padding: 20px;
     border-bottom: 1px solid #f0f0f0;
@@ -53,7 +68,10 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* Sort Buttons */
+/* =========================
+   Sort Buttons
+   ========================= */
+
 .sort-buttons {
     display: flex;
     flex-direction: column;
@@ -90,7 +108,10 @@ body {
     font-size: 16px;
 }
 
-/* Custom Order */
+/* =========================
+   Custom Order Section
+   ========================= */
+
 .custom-order-container {
     max-height: 200px;
     overflow-y: auto;
@@ -103,6 +124,7 @@ body {
     padding: 10px;
 }
 
+/* Each video item for custom reordering */
 .video-item {
     display: flex;
     align-items: center;
@@ -121,11 +143,13 @@ body {
     border-color: #007bff;
 }
 
+/* While dragging */
 .video-item.dragging {
     opacity: 0.5;
     transform: rotate(2deg);
 }
 
+/* Drag handle icon */
 .video-item .drag-handle {
     margin-right: 8px;
     color: #6c757d;
@@ -136,6 +160,7 @@ body {
     cursor: grabbing;
 }
 
+/* Video title text */
 .video-title {
     flex: 1;
     overflow: hidden;
@@ -143,6 +168,7 @@ body {
     white-space: nowrap;
 }
 
+/* Placeholder when no videos are loaded */
 .placeholder {
     text-align: center;
     color: #6c757d;
@@ -150,7 +176,10 @@ body {
     padding: 20px;
 }
 
-/* Action Buttons */
+/* =========================
+   Action Buttons
+   ========================= */
+
 .action-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -177,6 +206,7 @@ body {
     transform: translateY(-1px);
 }
 
+/* Primary (e.g. Save / Apply) button style */
 .action-btn.primary {
     background: #28a745;
     color: white;
@@ -194,7 +224,10 @@ body {
     font-size: 14px;
 }
 
-/* Status Messages */
+/* =========================
+   Status Messages
+   ========================= */
+
 .status {
     padding: 15px 20px;
     margin: 0 20px 20px;
@@ -205,6 +238,7 @@ body {
     display: none;
 }
 
+/* Success message */
 .status.success {
     background: #d4edda;
     color: #155724;
@@ -212,6 +246,7 @@ body {
     display: block;
 }
 
+/* Error message */
 .status.error {
     background: #f8d7da;
     color: #721c24;
@@ -219,6 +254,7 @@ body {
     display: block;
 }
 
+/* Info message */
 .status.info {
     background: #d1ecf1;
     color: #0c5460;
@@ -226,7 +262,10 @@ body {
     display: block;
 }
 
-/* Scrollbar Styling */
+/* =========================
+   Scrollbar Styling
+   ========================= */
+
 .custom-order-container::-webkit-scrollbar {
     width: 6px;
 }
@@ -245,14 +284,17 @@ body {
     background: #a8a8a8;
 }
 
-/* Responsive Design */
+/* =========================
+   Responsive Design
+   ========================= */
+
 @media (max-width: 400px) {
     .container {
         width: 100%;
         border-radius: 0;
     }
-    
+
     .action-buttons {
         grid-template-columns: 1fr;
     }
-} 
+}
