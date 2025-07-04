@@ -1,0 +1,268 @@
+/* YouTube Playlist Auto-Arranger Overlay Styles */
+
+/* Floating Button */
+#yt-playlist-sorter-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    color: white;
+    border-radius: 50px;
+    padding: 12px 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    user-select: none;
+}
+
+#yt-playlist-sorter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.sorter-btn-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.sorter-icon {
+    font-size: 16px;
+}
+
+/* Overlay Panel */
+#yt-playlist-sorter-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: 400px;
+    max-width: 90vw;
+    max-height: 80vh;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.sorter-panel-header {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sorter-panel-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.sorter-close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.sorter-close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.sorter-panel-content {
+    padding: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.sorter-section {
+    margin-bottom: 25px;
+}
+
+.sorter-section:last-child {
+    margin-bottom: 0;
+}
+
+.sorter-section h4 {
+    margin: 0 0 15px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Sort Option Buttons */
+.sorter-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sorter-option-btn {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 13px;
+    font-weight: 500;
+    color: #333;
+}
+
+.sorter-option-btn:hover {
+    background: #e9ecef;
+    border-color: #dee2e6;
+    transform: translateY(-1px);
+}
+
+.sorter-option-btn.active {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.sorter-btn-icon {
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+/* Action Buttons */
+.sorter-action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.sorter-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 12px;
+    font-weight: 500;
+    color: #333;
+}
+
+.sorter-action-btn:hover {
+    background: #e9ecef;
+    border-color: #dee2e6;
+    transform: translateY(-1px);
+}
+
+.sorter-action-btn.primary {
+    background: #28a745;
+    color: white;
+    border-color: #28a745;
+    grid-column: 1 / -1;
+}
+
+.sorter-action-btn.primary:hover {
+    background: #218838;
+    border-color: #1e7e34;
+}
+
+/* Notifications */
+.yt-playlist-sorter-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10001;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.3s ease;
+}
+
+.yt-playlist-sorter-notification.success {
+    background: #28a745;
+}
+
+.yt-playlist-sorter-notification.error {
+    background: #dc3545;
+}
+
+.yt-playlist-sorter-notification.info {
+    background: #17a2b8;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    #yt-playlist-sorter-btn {
+        bottom: 15px;
+        right: 15px;
+        padding: 10px 16px;
+    }
+    
+    .sorter-btn-content {
+        font-size: 12px;
+    }
+    
+    #yt-playlist-sorter-panel {
+        width: 95vw;
+        max-height: 85vh;
+    }
+    
+    .sorter-action-buttons {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Scrollbar Styling for Panel */
+.sorter-panel-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sorter-panel-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.sorter-panel-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.sorter-panel-content::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+} 
