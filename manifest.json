@@ -1,34 +1,24 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 3,                       
   "name": "YouTube Playlist Auto-Arranger",
   "version": "1.0.1",
   "description": "Sort and reorder YouTube playlists by title, upload date, or duration. Save custom orders and access them later.",
 
   "permissions": [
-    "storage",    /* save custom orders */
-    "activeTab",  /* access current tab */
-    "scripting"   /* inject scripts */
+    "storage",                                 
+    "scripting"                                
   ],
 
   "host_permissions": [
-    "https://www.youtube.com/*"
+    "https://www.youtube.com/*"                
   ],
-
-  "action": {
-    "default_popup": "popup.html",       /* popup UI file */
-    "default_title": "YouTube Playlist Auto-Arranger"
-  },
-
-  "background": {
-    "service_worker": "background.js"    /* background service worker */
-  },
 
   "content_scripts": [
     {
-      "matches": ["https://www.youtube.com/*"],  /* YouTube URLs */
-      "js": ["content_script.js"],               /* main logic */
-      "css": ["overlay.css"],                    /* overlay styles */
-      "run_at": "document_idle"                  /* load timing */
+      "matches": ["https://www.youtube.com/*"], 
+      "js": ["content_script.js"],              
+      "css": ["overlay.css"],                   
+      "run_at": "document_idle"                
     }
   ]
 }
