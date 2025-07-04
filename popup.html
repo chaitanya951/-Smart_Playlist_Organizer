@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>YouTube Playlist Auto-Arranger</title>
-    <link rel="stylesheet" href="popup.css">
+    
+    <!-- Link to popup CSS styles -->
+    <link rel="stylesheet" href="popup.css" />
 </head>
 <body>
+    <!-- ✅ Main Container -->
     <div class="container">
-        <!-- Header -->
+        
+        <!-- ✅ Header with Extension Name -->
         <div class="header">
             <h1>YouTube Playlist Auto-Arranger</h1>
         </div>
 
-        <!-- Sorting Options -->
+        <!-- ✅ Section: Sorting Options -->
         <div class="section">
             <h2>Sort Options</h2>
             <div class="sort-buttons">
+                <!-- Sort by Title Button -->
                 <button id="sortTitle" class="sort-btn">
                     <span class="icon">📝</span>
                     Sort by Title (A-Z)
                 </button>
+
+                <!-- Sort by Upload Date Button -->
                 <button id="sortDate" class="sort-btn">
                     <span class="icon">📅</span>
                     Sort by Upload Date
                 </button>
+
+                <!-- Sort by Duration Button -->
                 <button id="sortDuration" class="sort-btn">
                     <span class="icon">⏱️</span>
                     Sort by Duration
@@ -32,32 +41,42 @@
             </div>
         </div>
 
-        <!-- Custom Order Section -->
+        <!-- ✅ Section: Custom Order Area -->
         <div class="section">
             <h2>Custom Order</h2>
             <div class="custom-order-container">
                 <div id="videoList" class="video-list">
-                    <div class="placeholder">No videos found. Please navigate to a YouTube playlist.</div>
+                    <!-- Placeholder when no videos are loaded -->
+                    <div class="placeholder">
+                        No videos found. Please navigate to a YouTube playlist.
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Action Buttons -->
+        <!-- ✅ Section: Action Buttons -->
         <div class="section">
             <h2>Actions</h2>
             <div class="action-buttons">
+                <!-- Apply Sorting -->
                 <button id="applySort" class="action-btn primary">
                     <span class="icon">✅</span>
                     Apply Sorting
                 </button>
+
+                <!-- Save Custom Order -->
                 <button id="saveOrder" class="action-btn">
                     <span class="icon">💾</span>
                     Save Order
                 </button>
+
+                <!-- Load Saved Order -->
                 <button id="loadOrder" class="action-btn">
                     <span class="icon">📂</span>
                     Load Order
                 </button>
+
+                <!-- Reset to Default -->
                 <button id="resetOrder" class="action-btn">
                     <span class="icon">🔄</span>
                     Reset
@@ -65,10 +84,11 @@
             </div>
         </div>
 
-        <!-- Status Messages -->
+        <!-- ✅ Status Messages Area -->
         <div id="status" class="status"></div>
     </div>
 
+    <!-- ✅ Link to Popup JavaScript -->
     <script src="popup.js"></script>
 </body>
-</html> 
+</html>
