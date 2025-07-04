@@ -4,36 +4,31 @@
   "version": "1.0.1",
   "description": "Sort and reorder YouTube playlists by title, upload date, or duration. Save custom orders and access them later.",
 
-  /* Basic permissions for storage, tab access, and scripting */
   "permissions": [
-    "storage",
-    "activeTab",
-    "scripting"
+    "storage",    /* save custom orders */
+    "activeTab",  /* access current tab */
+    "scripting"   /* inject scripts */
   ],
 
-  /* Which sites the extension can run on */
   "host_permissions": [
     "https://www.youtube.com/*"
   ],
 
-  /* Popup shown when clicking the extension icon */
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "popup.html",       /* popup UI file */
     "default_title": "YouTube Playlist Auto-Arranger"
   },
 
-  /* Background service worker */
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js"    /* background service worker */
   },
 
-  /* Content scripts injected on YouTube pages */
   "content_scripts": [
     {
-      "matches": ["https://www.youtube.com/*"],
-      "js": ["content_script.js"],
-      "css": ["overlay.css"],
-      "run_at": "document_idle"
+      "matches": ["https://www.youtube.com/*"],  /* YouTube URLs */
+      "js": ["content_script.js"],               /* main logic */
+      "css": ["overlay.css"],                    /* overlay styles */
+      "run_at": "document_idle"                  /* load timing */
     }
   ]
 }
