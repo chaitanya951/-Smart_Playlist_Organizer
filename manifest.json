@@ -1,34 +1,46 @@
 {
+  // ✅ Chrome Extension Manifest V3 required version
   "manifest_version": 3,
+
+  // ✅ Extension name as shown in Chrome
   "name": "YouTube Playlist Auto-Arranger",
+
+  // ✅ Version of your extension
   "version": "1.0.1",
+
+  // ✅ Description shown in Chrome Extensions page and Web Store
   "description": "Sort and reorder YouTube playlists by title, upload date, or duration. Save custom orders and access them later.",
-  
+
+  // ✅ Permissions your extension needs
   "permissions": [
-    "storage",
-    "activeTab",
-    "scripting"
+    "storage",    // To save custom orders locally
+    "activeTab",  // To access the current tab
+    "scripting"   // To dynamically inject scripts
   ],
-  
+
+  // ✅ Which sites your extension can run on
   "host_permissions": [
     "https://www.youtube.com/*"
   ],
-  
+
+  // ✅ Defines the browser action (popup)
   "action": {
-    "default_popup": "popup.html",
-    "default_title": "YouTube Playlist Auto-Arranger"
-  },
-  
-  "background": {
-    "service_worker": "background.js"
+    "default_popup": "popup.html",       // File for the popup UI
+    "default_title": "YouTube Playlist Auto-Arranger" // Tooltip when hovering over the icon
   },
 
+  // ✅ Background service worker
+  "background": {
+    "service_worker": "background.js"    // Handles events like tab updates
+  },
+
+  // ✅ Content scripts to run on YouTube pages
   "content_scripts": [
     {
-      "matches": ["https://www.youtube.com/*"],
-      "js": ["content_script.js"],
-      "css": ["overlay.css"],
-      "run_at": "document_idle"
+      "matches": ["https://www.youtube.com/*"],  // URLs to inject into
+      "js": ["content_script.js"],               // Your sorting logic script
+      "css": ["overlay.css"],                    // Styles for the overlay button/panel
+      "run_at": "document_idle"                  // When to run (after page load)
     }
   ]
 }
