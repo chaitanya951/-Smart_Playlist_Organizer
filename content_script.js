@@ -1,11 +1,15 @@
 // YouTube Playlist Auto-Arranger – FINAL VERSION with Decimal-Friendly Natural Sorting
 
+// GLOBAL VARIABLES to hold overlay button and panel
 let overlayButton = null;
 let overlayPanel = null;
 let observer = null;
 
+// Start the content script
 initializeContentScript();
 
+
+// ✅ Check if current page is a YouTube playlist and set up sorting UI
 function initializeContentScript() {
   if (!isPlaylistPage()) return;
 
@@ -15,10 +19,14 @@ function initializeContentScript() {
   });
 }
 
+
+// ✅ Check if URL looks like a playlist page
 function isPlaylistPage() {
   return window.location.href.includes('youtube.com/playlist') && window.location.search.includes('list=');
 }
 
+
+// ✅ Wait until playlist videos are loaded in the DOM
 function waitForPlaylist() {
   return new Promise((resolve) => {
     const checkForVideos = () => {
@@ -33,6 +41,8 @@ function waitForPlaylist() {
   });
 }
 
+
+// ✅ Add floating overlay button if not already present
 function injectOverlayButton() {
   if (document.getElementById('yt-playlist-sorter-btn')) return;
 
@@ -48,6 +58,8 @@ function injectOverlayButton() {
   document.body.appendChild(overlayButton);
 }
 
+
+// ✅ Toggle overlay panel open/close
 function toggleOverlayPanel() {
   if (overlayPanel && overlayPanel.parentNode) {
     overlayPanel.remove();
@@ -57,6 +69,8 @@ function toggleOverlayPanel() {
   }
 }
 
+
+// ✅ Build the overlay sorting panel with buttons
 function createOverlayPanel() {
   overlayPanel = document.createElement('div');
   overlayPanel.id = 'yt-playlist-sorter-panel';
@@ -74,23 +88,30 @@ function createOverlayPanel() {
   `;
   document.body.appendChild(overlayPanel);
 
+  // Close panel
   overlayPanel.querySelector('.sorter-close-btn').addEventListener('click', () => {
     overlayPanel.remove();
     overlayPanel = null;
   });
 
+  // Handle sort option clicks
   overlayPanel.querySelectorAll('.sorter-option-btn').forEach(btn => {
     btn.addEventListener('click', () => handleSort(btn.dataset.sort));
   });
 
+  // Apply sorting button
   overlayPanel.querySelector('#applySortBtn').addEventListener('click', applySorting);
 }
 
+
+// ✅ Store selected sort type
 function handleSort(type) {
   window.playlistSortChoice = type;
   showNotification(`Selected sort: ${type}`);
 }
 
+
+// ✅ Trigger sorting based on selected option
 function applySorting() {
   if (!window.playlistSortChoice) {
     showNotification('Please select a sort option first.', 'error');
@@ -101,6 +122,8 @@ function applySorting() {
   showNotification('Sorting applied!');
 }
 
+
+// ✅ Extract video details and sort based on selected type
 function extractAndSort(type) {
   const container = document.querySelector('#contents');
   if (!container) return;
@@ -108,11 +131,12 @@ function extractAndSort(type) {
   const videos = Array.from(container.querySelectorAll('ytd-playlist-video-renderer, ytd-video-renderer'));
   if (videos.length === 0) return;
 
+  // Parse details from each video
   let parsed = videos.map(vid => {
-    // 1️⃣ Title
+    // 1️⃣ Extract title
     const title = vid.querySelector('#video-title, #video-title-link')?.textContent.trim() || '';
 
-    // 2️⃣ Duration
+    // 2️⃣ Extract duration
     let durationSeconds = 0;
     const durationElement = vid.querySelector('ytd-thumbnail-overlay-time-status-renderer span');
     if (durationElement) {
@@ -120,7 +144,7 @@ function extractAndSort(type) {
       durationSeconds = parseDuration(durationText);
     }
 
-    // 3️⃣ Upload Date
+    // 3️⃣ Extract relative upload date
     let uploadDate = new Date(0);
     const metadataSpans = vid.querySelectorAll('#metadata-line span');
     if (metadataSpans && metadataSpans.length > 0) {
@@ -141,7 +165,7 @@ function extractAndSort(type) {
     };
   });
 
-  // 4️⃣ Sorting
+  // ✅ Apply selected sorting
   if (type === 'title') {
     parsed.sort((a, b) => {
       const numA = parseNumberFromTitle(a.title);
@@ -149,7 +173,7 @@ function extractAndSort(type) {
       if (!isNaN(numA) && !isNaN(numB)) {
         return numA - numB;
       }
-      // fallback natural string comparison
+      // Fallback natural text sort
       return naturalCompare(a.title, b.title);
     });
   } else if (type === 'duration') {
@@ -158,11 +182,13 @@ function extractAndSort(type) {
     parsed.sort((a, b) => a.uploadDate - b.uploadDate);
   }
 
-  // 5️⃣ Apply new order
+  // ✅ Apply new order to the page
   container.innerHTML = '';
   parsed.forEach(v => container.appendChild(v.element));
 }
 
+
+// ✅ Convert duration text to seconds (HH:MM:SS or MM:SS)
 function parseDuration(durationText) {
   const parts = durationText.split(':').map(Number);
   if (parts.length === 2) {
@@ -173,6 +199,8 @@ function parseDuration(durationText) {
   return 0;
 }
 
+
+// ✅ Convert YouTube's "x years ago" to approximate Date object
 function parseUploadDate(text) {
   if (!text) return new Date(0);
 
@@ -199,15 +227,21 @@ function parseUploadDate(text) {
   return date;
 }
 
+
+// ✅ Extract first decimal number from title for chapter-based sorting
 function parseNumberFromTitle(title) {
   const match = title.match(/[\d\.]+/);
   return match ? parseFloat(match[0]) : NaN;
 }
 
+
+// ✅ Natural string comparison with numeric option
 function naturalCompare(a, b) {
   return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
 }
 
+
+// ✅ Observe changes in YouTube's dynamic page loading (SPA)
 function observePlaylistChanges() {
   observer = new MutationObserver(() => {
     if (isPlaylistPage()) {
@@ -221,6 +255,8 @@ function observePlaylistChanges() {
   }
 }
 
+
+// ✅ Show notification message on the page
 function showNotification(message, type = 'success') {
   const n = document.createElement('div');
   n.className = `yt-playlist-sorter-notification ${type}`;
