@@ -1,6 +1,8 @@
-/* YouTube Playlist Auto-Arranger Overlay Styles */
+/* =========================
+   YouTube Playlist Auto-Arranger Overlay Styles
+   ========================= */
 
-/* Floating Button */
+/* ✅ Floating "Sort Playlist" Button */
 #yt-playlist-sorter-btn {
     position: fixed;
     bottom: 20px;
@@ -17,11 +19,13 @@
     user-select: none;
 }
 
+/* Hover effect for the floating button */
 #yt-playlist-sorter-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
+/* Content inside the floating button */
 .sorter-btn-content {
     display: flex;
     align-items: center;
@@ -30,11 +34,16 @@
     font-size: 14px;
 }
 
+/* Icon inside the button */
 .sorter-icon {
     font-size: 16px;
 }
 
-/* Overlay Panel */
+/* =========================
+   Overlay Panel Styles
+   ========================= */
+
+/* Main panel container */
 #yt-playlist-sorter-panel {
     position: fixed;
     top: 50%;
@@ -51,6 +60,7 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
+/* Header area with title and close button */
 .sorter-panel-header {
     background: linear-gradient(135deg, #ff6b6b, #ee5a24);
     color: white;
@@ -60,12 +70,14 @@
     align-items: center;
 }
 
+/* Title in the header */
 .sorter-panel-header h3 {
     margin: 0;
     font-size: 18px;
     font-weight: 600;
 }
 
+/* Close (X) button in header */
 .sorter-close-btn {
     background: none;
     border: none;
@@ -86,12 +98,14 @@
     background: rgba(255, 255, 255, 0.2);
 }
 
+/* Content area inside the panel */
 .sorter-panel-content {
     padding: 20px;
     max-height: 60vh;
     overflow-y: auto;
 }
 
+/* Section titles inside the panel */
 .sorter-section {
     margin-bottom: 25px;
 }
@@ -109,13 +123,17 @@
     letter-spacing: 0.5px;
 }
 
-/* Sort Option Buttons */
+/* =========================
+   Sort Option Buttons
+   ========================= */
+
 .sorter-buttons {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
+/* Each sort option button */
 .sorter-option-btn {
     display: flex;
     align-items: center;
@@ -136,6 +154,7 @@
     transform: translateY(-1px);
 }
 
+/* Active selected sort button */
 .sorter-option-btn.active {
     background: #007bff;
     color: white;
@@ -147,7 +166,10 @@
     font-size: 16px;
 }
 
-/* Action Buttons */
+/* =========================
+   Action Buttons (Apply / Save)
+   ========================= */
+
 .sorter-action-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -175,6 +197,7 @@
     transform: translateY(-1px);
 }
 
+/* Primary action button (Apply Sorting) */
 .sorter-action-btn.primary {
     background: #28a745;
     color: white;
@@ -187,7 +210,10 @@
     border-color: #1e7e34;
 }
 
-/* Notifications */
+/* =========================
+   Notification Styling
+   ========================= */
+
 .yt-playlist-sorter-notification {
     position: fixed;
     top: 20px;
@@ -215,6 +241,7 @@
     background: #17a2b8;
 }
 
+/* Notification slide-in animation */
 @keyframes slideIn {
     from {
         transform: translateX(100%);
@@ -226,7 +253,10 @@
     }
 }
 
-/* Responsive Design */
+/* =========================
+   Responsive Design
+   ========================= */
+
 @media (max-width: 480px) {
     #yt-playlist-sorter-btn {
         bottom: 15px;
@@ -248,7 +278,10 @@
     }
 }
 
-/* Scrollbar Styling for Panel */
+/* =========================
+   Custom Scrollbar for Panel
+   ========================= */
+
 .sorter-panel-content::-webkit-scrollbar {
     width: 6px;
 }
@@ -265,4 +298,4 @@
 
 .sorter-panel-content::-webkit-scrollbar-thumb:hover {
     background: #a8a8a8;
-} 
+}
