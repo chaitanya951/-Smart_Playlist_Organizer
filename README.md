@@ -1,201 +1,175 @@
 # 🎬 YouTube Playlist Auto-Arranger - Chrome Extension
 
-A powerful Chrome extension that lets you **sort YouTube playlists right on the page**.  
-✅ Natural sorting (handles chapter numbers like 1.1, 1.11, 2.23).  
-✅ Approximate sorting by upload date and duration.  
-✅ Fully **client-side** – no server calls, no YouTube API writes.  
-✅ Single, elegant **floating button** integrated directly into YouTube's UI.  
+A powerful and lightweight Chrome extension that lets you **sort YouTube playlists right on the page** — by **Title** or **Duration**.  
+✅ Natural sorting (handles chapter numbers like 1.1, 1.11, 2.23)  
+✅ Fully **client-side** — no API calls, no servers, no reloads  
+✅ Sleek, floating UI integrated directly into YouTube’s layout  
 
 ---
 
 ## ✨ Features
 
-- **Smart Sorting**
-  - **Title**: Natural order, including decimal numbers in chapters
-    - Example: 1.1, 1.11, 2.23 sort in logical order
-  - **Upload Date**: Parses YouTube's relative dates ("5 years ago")
-  - **Duration**: Supports formats like HH:MM:SS and MM:SS
+- 📝 **Sort by Title**
+  - Smart numeric-aware sorting (e.g. 1.1, 1.11, 2.23)
+  - Avoids alphabetical bugs like "1.11" appearing before "1.2"
 
-- **Floating Overlay Interface**
-  - Always-visible **Sort Playlist** button on YouTube playlist pages
-  - Opens a clean overlay panel with sorting options
+- ⏱️ **Sort by Duration**
+  - Understands HH:MM:SS and MM:SS formats
+  - Sorts from shortest to longest (or modify for reverse)
 
-- **Real-Time SPA Support**
-  - Automatically works with YouTube’s single-page navigation
-  - Reinserts the overlay button on navigation
+- 📌 **Floating Overlay UI**
+  - Non-intrusive button always available on playlist pages
+  - Clean panel lets you apply sorting instantly
 
-- **Client-Side Only**
-  - All changes are local to your browser
-  - No server communication, no YouTube API writes
+- ⚡ **Real-Time YouTube SPA Support**
+  - Works with YouTube's single-page app navigation
+  - Button auto-reappears when navigating to a new playlist
+
+- 🔒 **Privacy First**
+  - All logic runs in your browser
+  - No external servers, tracking, or YouTube API writes
 
 ---
 
 ## 🚀 Installation
 
-### ✅ Load as Unpacked Extension
+### ✅ Load as Unpacked Extension (Dev Mode)
 
-1️⃣ Download or clone this repo.  
-2️⃣ Open Chrome and navigate to `chrome://extensions/`.  
-3️⃣ Enable **Developer mode** (toggle in top right).  
-4️⃣ Click **Load unpacked**.  
-5️⃣ Select your **extension folder**.
+1. Clone or download this repo  
+2. Open Chrome and go to: `chrome://extensions/`  
+3. Enable **Developer mode** (top right corner)  
+4. Click **Load unpacked**  
+5. Select your extension folder (e.g. `youtube-playlist-auto-arranger`)  
 
 ---
 
 ## 📖 How to Use
 
-### ✅ Navigate to a Playlist
-- Open **any YouTube playlist** (URL includes `/playlist?list=`).
-- The floating **Sort Playlist** button appears in the bottom-right corner.
+### 1️⃣ Navigate to a Playlist  
+- Open any YouTube playlist (`youtube.com/playlist?list=...`)  
+- A **Sort Playlist** button appears in the bottom-right corner  
 
-### ✅ Sort In-Page
-1️⃣ Click the **Sort Playlist** button.  
-2️⃣ The overlay panel opens with options:
-   - 📝 **Sort by Title**
-   - 📅 **Sort by Upload Date**
-   - ⏱️ **Sort by Duration**
-3️⃣ Choose your sorting option.  
-4️⃣ Click ✅ **Apply Sorting**.  
-5️⃣ The playlist reorders instantly **without a page reload**.
+### 2️⃣ Apply Sorting  
+1. Click the floating button  
+2. Choose a sort option:
+   - 📝 Sort by Title
+   - ⏱️ Sort by Duration  
+3. Click ✅ **Apply Sorting**  
+4. The videos reorder instantly **without reloading the page**
 
 ---
 
 ## 🎨 Example Use Case
 
-> ✅ Chaptered lecture playlist:
+**Before:**
+1.11 Advanced Setup
 1.1 Introduction
-1.11 Deeper Dive
-2.23 Advanced Topic
+2.23 Final Build
 
-✅ Sorted *naturally*, not alphabetically.
+
+**After Sorting by Title:**
+1.1 Introduction
+1.11 Advanced Setup
+2.23 Final Build
 
 ---
 
 ## 💻 Technical Details
 
-- **Manifest V3**
-  - Defines permissions, matches, and scripts
-- **Content Script**
-  - Injected only on YouTube playlist pages
-  - Adds the floating button and overlay
-  - Uses `MutationObserver` to handle YouTube SPA navigation
-- **Sorting Logic**
-  - **Title Sorting**: Natural, numeric-aware order
-  - **Upload Date Sorting**: Parses "x years ago" text to approximate dates
-  - **Duration Sorting**: Converts HH:MM:SS or MM:SS to seconds for sorting
-- **Styling**
-  - `overlay.css` handles the floating button and modal styles
+- **Manifest V3**: Chrome’s latest extension standard  
+- **Content Script**:
+  - Injected on `youtube.com/playlist` pages
+  - Adds a persistent floating button
+  - Observes YouTube’s SPA navigation with MutationObserver
+
+- **Sorting Logic**:
+  - `title`: Natural, numeric-aware comparison
+  - `duration`: Parses time strings to seconds and sorts numerically
+
+- **CSS Styling**:
+  - `overlay.css` styles the button and modal
+  - Responsive and animated UI
 
 ---
 
-## 📂 File Structure
+## 📂 Folder Structure
 
 youtube-playlist-auto-arranger/
 ├── manifest.json # Extension metadata & permissions
-├── content_script.js # Main injected script for YouTube
-├── overlay.css # Styling for floating button & overlay
+├── content_script.js # Floating UI & sorting logic
+├── overlay.css # Styling for floating button and panel
 └── README.md # This file
+
 
 ---
 
 ## ✅ Permissions
 
-- **`storage`**: To save user's sorting choice locally (if extended)
-- **`scripting`**: Required for content script injection
-- **`https://www.youtube.com/*`**: Runs only on YouTube playlist pages
-
----
-
-## ✅ How It Works
-
-1. On visiting a YouTube playlist page (`/playlist?list=`), the extension:
-   - Injects a **floating Sort Playlist button** at bottom-right.
-2. Button opens a **sorting overlay panel** with:
-   - Sort by Title
-   - Sort by Upload Date
-   - Sort by Duration
-3. User selects a sort option and clicks **Apply Sorting**.
-4. The extension reorders the visible playlist videos **in-place**.
-5. No page reload, no server calls — everything is local and instant.
+- `storage` *(optional)*: For future saving of preferences  
+- `scripting`: To inject content scripts  
+- `https://www.youtube.com/*`: Required to run on playlist pages  
 
 ---
 
 ## 🛠️ Troubleshooting
 
-✅ Floating button not showing?
-- Make sure you're on a **playlist page** (URL includes `list=`).
-- Refresh the page.
+- ❓ **Floating button not showing?**
+  - Make sure you’re on a playlist page (`list=` in the URL)
+  - Try refreshing the page
 
-✅ Sort by Date not perfect?
-- YouTube only shows *relative* dates ("5 years ago"), so sorting is approximate.
+- ❓ **Sort by Title looks wrong?**
+  - Make sure your titles use a consistent chapter format (e.g. 1.1, 1.2)
 
-✅ Weird Title sort?
-- Extension uses natural, decimal-aware sorting. If your titles aren't chapter-style, results may vary.
+- ❓ **Videos didn’t change order?**
+  - Playlist might be loaded dynamically — click Apply again after loading
 
-✅ General fixes:
-- Refresh the YouTube page.
-- Reload the extension in `chrome://extensions/`.
-- Check Developer Tools console for errors.
+- 🛠 Try these general fixes:
+  - Refresh the YouTube page  
+  - Reload extension in `chrome://extensions/`  
+  - Check Developer Console for errors
 
 ---
 
 ## ✅ Browser Support
 
-- **Chrome** 88+ (Manifest V3 required)
-- **Edge** 88+ (Chromium-based)
-- Other Chromium browsers with Manifest V3 support should also work
+- ✅ Chrome 88+ (Manifest V3 required)  
+- ✅ Microsoft Edge (Chromium-based)  
+- ✅ Other Chromium-based browsers  
 
 ---
 
-## 🎯 Use Cases
+## 🎯 Who Can Use This?
 
-- **Educators**: Organize lecture videos by chapter numbers
-- **Content Creators**: Ensure playlists match intended order
-- **Music Lovers**: Sort playlists by track duration
-- **Researchers**: Arrange by upload age
-- **Anyone**: Make any playlist easier to navigate
+- **Educators**: Sort chapters of a lecture series  
+- **YouTubers**: Publish playlists in viewer-friendly order  
+- **Students**: Arrange tutorials by topic or time  
+- **Anyone**: Take control of how playlists play  
 
 ---
 
 ## 🔒 Privacy & Security
 
-✅ All changes are **local to your browser**  
-✅ No server communication  
-✅ No personal data collected  
-✅ YouTube’s servers are **never modified**
+✅ Everything stays in your browser  
+✅ No tracking or external server communication  
+✅ YouTube’s servers are never modified  
 
 ---
 
-## 🤝 Contributing
+## 🧪 Dev Setup
 
-✅ Fork this repo  
-✅ Create a new branch  
-✅ Make your changes & test  
-✅ Submit a Pull Request
-
----
-
-## 🛠️ Dev Setup
-
-1️⃣ Clone the repo.  
-2️⃣ Load unpacked in Chrome (`chrome://extensions/`).  
-3️⃣ Make changes.  
-4️⃣ Reload the extension in `chrome://extensions/`.  
-5️⃣ Test on YouTube playlist pages.
+1. Clone the repo  
+2. Visit `chrome://extensions/`  
+3. Enable Dev Mode → Load Unpacked  
+4. Select the extension folder  
+5. Refresh YouTube and test 🎯
 
 ---
 
 ## 📝 License
 
-✅ Free to use, modify, and share.
-
----
-
-## 🙏 Acknowledgments
-
-- YouTube for the platform
-- Chrome Extension APIs
-- The open-source community for inspiration
+© 2025 D S S Chaitanya Raju  
+Free to use, customize, and share with attribution.  
+See full terms in [license.txt](license.txt).
 
 ---
 
